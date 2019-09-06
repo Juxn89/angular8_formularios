@@ -28,6 +28,8 @@ export class DataComponent implements OnInit {
       }),
       'correo' : new FormControl('', [Validators.required, Validators.email])
     });
+
+    this.forma.setValue(this.usuario);
   }
 
   ngOnInit() {
@@ -35,5 +37,19 @@ export class DataComponent implements OnInit {
 
   guardarCambios() {
     console.log(this.forma.value, this.forma);
+    // OPCIÓN 1 DE LIMPIEZA DEL FORMULARIO
+    this.forma.reset(this.usuario);
+
+    // OPCIÓN 2 DE LIMPIEZA DEL FORMULARIO
+    this.forma.reset({
+      nombrecompleto: {
+        nombre: '',
+        apellido: ''
+      },
+      correo: ''
+    });
+
+    // OPCIÓN 3 DE LIMPIEZA DEL FORMULARIO
+    this.forma.controls['correo'].setValue('nuevocorreo@gmail.com');
   }
 }
