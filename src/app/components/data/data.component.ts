@@ -30,9 +30,17 @@ export class DataComponent implements OnInit {
       'correo' : new FormControl('', [Validators.required, Validators.email]),
       'pasatiempos': new FormArray([
         new FormControl('Correr', Validators.required)
-      ])
+      ]),
+      'password1': new FormControl('', [Validators.required]),
+      'password2': new FormControl()
     });
 
+    this.forma.controls['password2'].setValidators([
+      Validators.required,
+      // SE EMPLEA EL .bind(this.forma) PORQUE LA FUNCIÓN SE EJECUTA BAJO OTRO
+      // CONTEXTO / SCOOPE. EL .bind LE ASIGNA BAJO QUE COTEXTO SE DEBE DE EJECUTAR
+      this.noIgual.bind(this.forma)
+    ]);
     // this.forma.setValue(this.usuario);
   }
 
@@ -70,6 +78,17 @@ export class DataComponent implements OnInit {
       return {
         nogomez: true
       };
+    }
+    return null;
+  }
+
+  noIgual(control: FormControl): {[s: string]: boolean} {
+    // AL USAR EL .bind(this.forma) NO ES NECESARIO ESCRIBIR this.forma.uk-form-controls
+    // PORQUE LA REFERENCIA DE this SEÍA LA forma
+
+    let forma: any = this;
+    if (control.value !== forma.controls['password1'].value) {
+      return { noiguales: true };
     }
     return null;
   }
