@@ -25,7 +25,7 @@ export class DataComponent implements OnInit {
     this.forma = new FormGroup({
       'nombrecompleto': new FormGroup({
         'nombre' : new FormControl('', [Validators.required, Validators.minLength(3)]),
-        'apellido' : new FormControl('', Validators.required)
+        'apellido' : new FormControl('', [Validators.required, this.NoApellido])
       }),
       'correo' : new FormControl('', [Validators.required, Validators.email]),
       'pasatiempos': new FormArray([
@@ -45,13 +45,13 @@ export class DataComponent implements OnInit {
     this.forma.reset(this.usuario);
 
     // OPCIÓN 2 DE LIMPIEZA DEL FORMULARIO
-    this.forma.reset({
+    /*this.forma.reset({
       nombrecompleto: {
         nombre: '',
         apellido: ''
       },
       correo: ''
-    });
+    });*/
 
     // OPCIÓN 3 DE LIMPIEZA DEL FORMULARIO
     this.forma.controls['correo'].setValue('nuevocorreo@gmail.com');
@@ -63,5 +63,14 @@ export class DataComponent implements OnInit {
     (<FormArray>this.forma.controls['pasatiempos']).push(
       new FormControl('', Validators.required)
     );
+  }
+
+  NoApellido(control: FormControl): {[s: string]: boolean} {
+    if (control.value === 'Gomez') {
+      return {
+        nogomez: true
+      };
+    }
+    return null;
   }
 }
