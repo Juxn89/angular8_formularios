@@ -43,6 +43,26 @@ export class DataComponent implements OnInit {
       // CONTEXTO / SCOOPE. EL .bind LE ASIGNA BAJO QUE COTEXTO SE DEBE DE EJECUTAR
       this.noIgual.bind(this.forma)
     ]);
+
+    // DE ESTA MANERA SE ESTÁ PENDIENTE DE TOSO LOS CAMBIOS DE TODOS LOS CONTROLES
+    // DE LOS FORMULARIOS
+    this.forma.valueChanges.subscribe( data => {
+      // console.log(data);
+    } );
+
+    // DE ESTA MANERA SE ESTÁ PENDIENTE DE LOS CAMBIOS DE UN DETERMINADO CAMPO
+    // DE LOS FORMULARIOS
+    this.forma.controls['username'].valueChanges.subscribe( data => {
+      console.log(data);
+    } );
+
+    // DE ESTA MANERA SE ESTÁ PENDIENTE DEL ESTADO DE UN DETERMINADO CAMPO
+    // DE LOS FORMULARIOS
+    this.forma.controls['username'].status.subscribe( data => {
+      console.log(data);
+    } );
+
+    // DE ESTA MANERA SE SETEAN CON VALORES POR DEFECTO EN EL FORMULARIO
     // this.forma.setValue(this.usuario);
   }
 
