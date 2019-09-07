@@ -37,6 +37,14 @@
     </div>
 
     <div class="form-group row">
+        <label class="col-2 col-form-label">User name</label>
+        <div class="col-md-8">
+
+            <input class="form-control" type="text" placeholder="User name" formControlName="username">
+        </div>
+    </div>
+
+    <div class="form-group row">
         <label class="col-2 col-form-label">Password</label>
         <div class="col-md-8">
 
@@ -73,4 +81,5 @@
         </div>
     </div>
     {{ forma.valid }}
+    <br> {{ forma.status }}
 </form>
